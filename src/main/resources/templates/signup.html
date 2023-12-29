@@ -6,42 +6,53 @@
 </head>
 <body>
 <section>
-<div class="container col-5 mt-3">
-  <form method="post" th:action="@{/do-signup}" th:object="${user}">
-    <div class="text-center h2"> Register Here </div>
-    <div  th:if="${session.message}"  th:classappend="${session.message.type}" class="alert"  role="alert">
-      <p th:text="${session.message.content}"></p>
-      <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+    <div class="container col-5 mt-3">
+        <form method="post" th:action="@{/do-signup}" th:object="${user}">
+            <div class="text-center h2"> Register Here</div>
+            <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                <p th:text="${session.message.content}"></p>
+            </div>
+            <div class="mb-3">
+                <label for="examplename" class="form-label">Name</label>
+                <input type="text" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                       class="form-control" name="name" id="examplename" th:value="${user?.name}" required>
+                <div class="invalid-feedback" th:each="e: ${#fields.errors('name')}" th:text="${e}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="text" class="form-control" name="email"
+                       th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                       th:value="${user?.email}" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                <div class="invalid-feedback" th:each="e: ${#fields.errors('email')}" th:text="${e}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="text" class="form-control"
+                       th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}" name="password"
+                       id="exampleInputPassword1" th:value="${user?.password}" required>
+                <div class="invalid-feedback" th:each="e: ${#fields.errors('password')}" th:text="${e}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" name="role" aria-label="Default select example" required>
+                    <option>Open this select menu</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User" selected>User</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">About You</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"
+                          th:text="${user?.description}" placeholder="Describe Yourself"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-      <label for="examplename" class="form-label">Name</label>
-      <input type="text" class="form-control" name="name" id="examplename" th:value="${user?.name}" required >
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="text" class="form-control" name="email" th:value="${user?.email}" id="exampleInputEmail1"  aria-describedby="emailHelp" required>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="text" class="form-control" name="password" id="exampleInputPassword1" th:value="${user?.password}"  required>
-    </div>
-    <div class="mb-3">
-      <select class="form-select" name="role" aria-label="Default select example"   required>
-        <option>Open this select menu</option>
-        <option value="Admin">Admin</option>
-        <option value="User" selected>User</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">About You</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3" th:text="${user?.description}" placeholder="Describe Yourself"></textarea>
-    </div>
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="reset" class="btn btn-danger">Reset</button>
-    </div>
-  </form>
-</div>
 </section>
 
 </body>

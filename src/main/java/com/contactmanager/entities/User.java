@@ -1,6 +1,9 @@
 package com.contactmanager.entities;
 
 import jakarta.persistence.*;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -9,8 +12,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank(message = "Name is Required!!")
+    @Size(min=2,max =1000, message = "name size should be in between 2-100")
     private String name;
+    @NotBlank(message = "Password is Required!!")
+    @Size(min=4, message = "Password Size Should be more than 4")
     private String password;
+    @NotBlank(message = "Email is Required!!")
     @Column(unique = true)
     private String email;
     private String role;
